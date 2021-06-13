@@ -2,9 +2,40 @@ import React, { createContext, useContext } from "react";
 
 const AppStateContext = createContext({} as AppStateContextProps);
 
+type Action =
+  | {
+      type: "ADD_LIST";
+      payload: string;
+    }
+  | {
+      type: "ADD_TASK";
+      payload: { text: string; listId: string };
+    };
+
 interface AppStateContextProps {
   state: AppState;
 }
+
+const appStateReducer = (state: AppState, action: Action): AppState => {
+  switch (action.type) {
+    case "ADD_LIST": {
+      //Reducer logic here
+      return {
+        ...state,
+      };
+    }
+
+    case "ADD_TASK": {
+      return {
+        ...state,
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
+};
 
 export const AppStateProvider = ({ children }: React.PropsWithChildren<{}>) => {
   return (
