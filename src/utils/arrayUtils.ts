@@ -1,5 +1,3 @@
-
-
 interface Item{
     id:string;  
 }
