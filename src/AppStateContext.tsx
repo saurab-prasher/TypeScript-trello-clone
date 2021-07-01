@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { nanoid } from "nanoid";
-import { findItemIndexById } from "./utils/arrayUtils";
+import { findItemIndexById, overrideItemAtIndex } from "./utils/arrayUtils";
 
 const AppStateContext = createContext({} as AppStateContextProps);
 
@@ -23,6 +23,7 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
     case "ADD_LIST": {
       //Reducer logic here
+      console.log(state, action);
       return {
         ...state,
         lists: [
@@ -33,17 +34,26 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
     }
 
     case "ADD_TASK": {
-      const targetLaneIndex = findItemIndexById(
+      const targetListIndex = findItemIndexById(
         state.lists,
         action.payload.listId
       );
+      const targetList = state.lists[targetListIndex];
+      const updatedTargetList = {
+        ...targetList,
+        tasks: [
+          ...targetList.tasks,
+          { id: nanoid(), text: action.payload.text },
+        ],
+      };
 
-      state.lists[targetLaneIndex].tasks.push({
-        id: nanoid(),
-        text: action.payload.text,
-      });
       return {
         ...state,
+        lists: overrideItemAtIndex(
+          state.lists,
+          updatedTargetList,
+          targetListIndex
+        ),
       };
     }
 
@@ -56,7 +66,7 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
 export const AppStateProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [state, dispatch] = useReducer(appStateReducer, appData);
   return (
-    <AppStateContext.Provider value={{ state: appData, dispatch }}>
+    <AppStateContext.Provider value={{ state, dispatch }}>
       {children}
     </AppStateContext.Provider>
   );
@@ -76,12 +86,12 @@ const appData: AppState = {
     {
       id: "1",
       text: "In Progress",
-      tasks: [{ id: "c2", text: "Learn Typescript" }],
+      tasks: [{ id: "c1", text: "Learn Typescript" }],
     },
     {
-      id: "3",
+      id: "2",
       text: "Done",
-      tasks: [{ id: "c3", text: "Begin to use static typing" }],
+      tasks: [{ id: "c2", text: "Begin to use static typing" }],
     },
   ],
 };
