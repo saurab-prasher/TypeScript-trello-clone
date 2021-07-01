@@ -1,13 +1,12 @@
 import React from "react";
 import { Column } from "./Column";
-import { Card } from "./Card";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "./AppStateContext";
 import { AppContainer } from "./styles";
 
 function App() {
   const { state, dispatch } = useAppState();
-  console.log(state);
+
   return (
     <AppContainer>
       {state.lists.map((list, i) => (
