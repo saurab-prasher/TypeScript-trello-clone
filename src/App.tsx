@@ -1,4 +1,5 @@
 import React from "react";
+import CustomDragLayer from "./CustomDragLayer";
 import { Column } from "./Column";
 import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "./AppStateContext";
@@ -9,6 +10,7 @@ function App() {
 
   return (
     <AppContainer>
+      <CustomDragLayer />
       {state.lists.map((list, i) => (
         <Column id={list.id} text={list.text} key={list.id} index={i} />
       ))}

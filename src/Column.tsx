@@ -12,9 +12,10 @@ interface ColumnProps {
   text: string;
   index: number;
   id: string;
+  isPreview?: boolean;
 }
 
-export const Column = ({ text, index, id }: ColumnProps) => {
+export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
   const [, drop] = useDrop({
     accept: "COLUMN",
     hover(item: DragItem) {
@@ -35,7 +36,8 @@ export const Column = ({ text, index, id }: ColumnProps) => {
   drag(drop(ref));
   return (
     <ColumnContainer
-      isHidden={isHidden(state.draggedItem, "COLUMN", id)}
+      isPreview={isPreview}
+      isHidden={isHidden(isPreview, state.draggedItem, "COLUMN", id)}
       ref={ref}
     >
       <ColumnTitle>{text}</ColumnTitle>
