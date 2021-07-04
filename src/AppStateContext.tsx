@@ -1,13 +1,13 @@
 import React, { createContext, useReducer, useContext } from "react";
 import { nanoid } from "nanoid";
-import { DragItem } from "./DragItem";
 import {
+  findItemIndexById,
   insertItemAtIndex,
+  moveItem,
   overrideItemAtIndex,
   removeItemAtIndex,
-  findItemIndexById,
-  moveItem,
 } from "./utils/arrayUtils";
+import { DragItem } from "./DragItem";
 
 interface Task {
   id: string;

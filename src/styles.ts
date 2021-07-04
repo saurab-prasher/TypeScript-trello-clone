@@ -16,18 +16,8 @@ interface DragPreviewContainerProps {
 }
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${(props) => (props.isHidden ? 0 : 1)};
   transform: ${(props) => (props.isPreview ? "rotate(5deg)" : undefined)};
-`;
-
-export const CustomDragLayerContainer = styled.div`
-  height: 100%;
-  left: 0;
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
+  opacity: ${(props) => (props.isHidden ? 0 : 1)};
 `;
 
 export const ColumnContainer = styled(DragPreviewContainer)`
@@ -38,6 +28,7 @@ export const ColumnContainer = styled(DragPreviewContainer)`
   border-radius: 3px;
   padding: 8px 8px;
   flex-grow: 0;
+  flex-shrink: 0;
 `;
 
 export const ColumnTitle = styled.div`
@@ -45,7 +36,7 @@ export const ColumnTitle = styled.div`
   font-weight: bold;
 `;
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(DragPreviewContainer)`
   background-color: #fff;
   cursor: pointer;
   margin-bottom: 0.5rem;
@@ -83,6 +74,15 @@ export const NewItemFormContainer = styled.div`
   align-items: flex-start;
 `;
 
+export const NewItemInput = styled.input`
+  border-radius: 3px;
+  border: none;
+  box-shadow: #091e4240 0px 1px 0px 0px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+`;
+
 export const NewItemButton = styled.button`
   background-color: #5aac44;
   border-radius: 3px;
@@ -92,11 +92,13 @@ export const NewItemButton = styled.button`
   padding: 6px 12px;
   text-align: center;
 `;
-export const NewItemInput = styled.input`
-  border-radius: 3px;
-  border: none;
-  box-shadow: #091e4240 0px 1px 0px 0px;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
+
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
   width: 100%;
+  z-index: 100;
 `;
